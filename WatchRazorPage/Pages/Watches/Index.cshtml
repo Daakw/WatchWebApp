@@ -1,0 +1,64 @@
+﻿@page 
+@model WatchRazorPage.Pages.Watches.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Watches</h1>
+
+
+<form>
+    <p>
+        <select asp-for="WatchBrand" asp-items="Model.Brands">
+            <option value="">All Models</option>
+        </select>
+        Search by Brand: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Watch[0].BrandName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Watch[0].ModelName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Watch[0].ModelReference)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Watch[0].ReleaseDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Watch) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrandName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModelName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModelReference)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
